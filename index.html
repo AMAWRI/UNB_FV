@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EP-RGrid</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+     </style>
+</head>
+<body>
+
+   <container style="width:70%">  
+
+    <nav class="navbar fixed-top bg-body-secundary">
+        <div class="container-fluid"><nav class="navbar fixed-top bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"></a>
+            </div>
+          </nav>
+          <a class="navbar-brand" href="#">EngProd-UNB</a>
+        </div>
+      </nav>
+
+         <div class="container mt-5">
+        <div class="text-center">
+            
+            
+            <div id="remaining-combinations" class="mb-3">Combinações restantes: 56</div>
+            <div id="message" class="mb-3"></div>
+            <div id="alert-container" class="alert alert-info" style="display: none;">
+                <strong>Mensagem:</strong> <span id="alert-message"></span>
+            </div>
+        </div>
+        <div id="card-container" class="row"></div>
+        <button id="draw-card" class="btn btn-primary mb-3 ">Sorteie 3 marcas e em seguida responda abaixo</button>
+        <form id="response-form" class="mt-3">
+            
+            <div class="form-group">
+                <label for="sorted-combination">Cartas sorteadas:</label>
+                <input type="text" id="sorted-combination" class="form-control" disabled>
+            </div>
+            
+            <div class="form-group">
+                <label for="response">Resposta:</label>
+                <textarea id="response" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar Resposta</button>
+        </form>
+      
+        <button id="download-csv" class="btn btn-secondary mt-3" disabled>Baixar CSV</button>
+        <button id="exit-button" class="btn btn-danger mt-3">Sair</button>
+    
+    </div>
+
+    <script src="script.js"></script>
+</container>
+</body>
+</html>
