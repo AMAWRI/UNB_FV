@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
         responseForm.reset();
 
         // Habilitar botão de download quando houver pelo menos 5 respostas
-        if (responses.length >= 5) {
+        if (responses.length >= 7) {
             downloadCsvButton.disabled = false;
         }
     });
