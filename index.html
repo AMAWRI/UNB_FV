@@ -10,27 +10,124 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            /* Adiciona margem superior para o conteúdo principal para evitar sobreposição */
+        body {
+            padding-top: 70px; /* Ajuste este valor conforme a altura da navbar */
         }
      </style>
 </head>
 <body>
+    <!--   
+    Barra de navegação fixa 
+       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EP-UnB - Projeto de pesquisa</a>
+        </div>
+    </nav>-->
+
+<!-- Barra de navegação fixa -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">UnB-EngProd - Projeto de Pesquisa RGrid v.1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#instructionsModal"><h4>INSTRUÇÕES</h4></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+
+
+<!-- Modal de Instruções -->
+<div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="instructionsModalLabel">Instruções</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Instruções vão aqui -->
+                <h3>Olá!</h3> 
+
+                <p>Aqui, Amauri. Tudo bem?</p>
+                <p>Estou fazendo uma pesquisa  sobre os fatores que influenciam os consumidores ao decidirem qual o aparelho de celular comprar. Pode me ajudar a identificar esses fatores respondendo algumas perguntas? É rapidinho! Funciona assim:
+                
+                <h2>Orientações gerais</h2>
+                
+                <p>Você acessa a página da pesquisa https://amawri.github.io/UNB_FV/, clica no botão “Sortear”, vai ser gerada uma combinação de 3 cartões com marcas de celulares e os símbolos (+) e (-) . Você preenche uma campo de resposta em seguida em “Salvar”.  Após dar sua opinião e responder pelo menos a 7 sorteios, um botão de download será habilitado para que você possa baixar o arquivo e me enviar por e-mail ou whatsapp.</p>
+                
+                <h3>Orientações específicas</h3>
+                
+                <p>1. Sobre como responder</p>
+                <ul>
+                    <li> <b>Passo 1.</b> Sortear, clicando no botão “Sortear combinação”.</li>
+                    <li> <b>Passo 2.</b> Preencher o campo de resposta.</li>
+                    <li> <b>Passo 3.</b> Salvar e voltar a sortear. Peço que faça pelo meno sete sorteios e resposta para habilitar o botão. de download. </li>
+                    <li> <b>Passo 4.</b> Salvar clicando em “Download”.</li>
+                    <li> <b>Passo 5.</b> Enviar o arquivo responses.CSV para amauri.rodrigues@aluno.unb.br ou para o meu whatsapp.</li>
+                </ul>
+                
+                <h3>Sobre o tipo de respostas</h3>
+                
+                <p>Dependendo das combinações, você responderá com um determinado tipo de resposta:</p>
+                
+                <p>Combinações</p>
+                <span><b>Tipo de resposta</b></span>
+                <ul>
+                    <li>Marca - Marca - Marca: Aponte um aspecto semelhante entre duas marcas e um aspecto que diferencia a terceira das outras.</li>
+                    <li>Marca - Marca - ( + ): Aponte um aspecto positivo da cada marca</li>
+                    <li>Marca - Marca -(  - ): Aponte um aspecto negativo da cada marca</li>
+                    <li>Marca - Marca -(  - ): Aponte um aspecto Positivo e um negativo da marca</li>
+                </ul>
+                
+                
+                <h3>Exemplo se fosse uma pesquisa sobre alimentos:</h3>
+                <p>Digamos que eu tenha que escolher entre três alimentos: pipoca, peixe e pamonha. </p>
+                <p>alimento | alimento | alimento</p>
+                <p>Assim, eu aponto um aspecto semelhante entre dois alimentos e um aspecto que diferencia o  terceiro dos outros:</p>
+                                              
+                <p>Posso dizer que a pipoca e a pamonha tem uma aspectos em comum, são de origem vegetal e o peixe, de origem animal.</p>
+                
+                <p>Apontando aspectos que diferencia um alimento dos outros dois:</p>
+                
+                <p>Por sua vez posso dizer que o peixe se diferencia dos outros doi<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        ...
+                      </div>
+                    </div>
+                  </div>s alimentos pela quantidade de proteína. Veja que não apontei a aspectos “origem” para diferenciá-lo dos outros alimentos, pois eu já usei para identificar aspectos em comum entre os outros dois.</p>
+                
+                <p>Para as outras combinações é seguir a tabela ou as orientações que surge na caixa azul acima dos cartões.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
    <container style="width:70%">  
 
-    <nav class="navbar fixed-top bg-body-secundary">
-        <div class="container-fluid"><nav class="navbar fixed-top bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#"></a>
-            </div>
-          </nav>
-          <a class="navbar-brand" href="#">EngProd-UNB</a>
-        </div>
-      </nav>
 
          <div class="container mt-5">
         <div class="text-center">
             
-            
+            <div style="margin-top: 50px"> </div>
             <div id="remaining-combinations" class="mb-3">Combinações restantes: 56</div>
             <div id="message" class="mb-3"></div>
             <div id="alert-container" class="alert alert-info" style="display: none;">
@@ -38,27 +135,72 @@
             </div>
         </div>
         <div id="card-container" class="row"></div>
-        <button id="draw-card" class="btn btn-primary mb-3 ">Sorteie 3 marcas e em seguida responda abaixo</button>
-        <form id="response-form" class="mt-3">
-            
+        <!--<button id="draw-card" class="btn btn-primary mb-3 ">Sortear combinações</button>-->
+        
+        <form id="response-form" class="mt-3">            
             <div class="form-group">
-                <label for="sorted-combination">Cartas sorteadas:</label>
+                <!--<label for="sorted-combination">Combinações sorteadas:</label>-->
                 <input type="text" id="sorted-combination" class="form-control" disabled>
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        ...
+                      </div>
+                    </div>
+                  </div>
             </div>
             
             <div class="form-group">
+                <br>
                 <label for="response">Resposta:</label>
                 <textarea id="response" class="form-control" rows="4" required></textarea>
             </div>
+            
+            
+            
+            <button id="draw-card" class="btn btn-primary">Sortear combinações</button>
             <button type="submit" class="btn btn-success">Salvar Resposta</button>
-        </form>
-      
-        <button id="download-csv" class="btn btn-secondary mt-3" disabled>Baixar CSV</button>
-        <button id="exit-button" class="btn btn-danger mt-3">Sair</button>
-    
+            <button id="download-csv" class="btn btn-secondary" disabled>Download</button>
+            <button id="exit-button" class="btn btn-danger">Sair</button>
+        </form>    
     </div>
 
     <script src="script.js"></script>
 </container>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script><div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        ...
+      </div>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const externalSubmitBtn = document.getElementById("external-submit-btn");
+            const responseForm = document.getElementById("response-form");
+
+            externalSubmitBtn.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent default behavior of the button
+
+                // Validate the form manually (optional)
+                if (responseForm.checkValidity()) {
+                    // If form is valid, submit the form
+                    responseForm.submit();
+                } else {
+                    // If form is not valid, show validation errors
+                    responseForm.reportValidity();
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
 </body>
 </html>
