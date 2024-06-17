@@ -55,33 +55,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function showMessage(combination) {
         const classes = combination.map(card => card.class);
-    
-        // Seleciona o elemento onde as mensagens são exibidas
+        
         const messageDisplay = document.getElementById("alert-message");
-    
-        // Seleciona o container do alerta
         const alertContainer = document.getElementById("alert-container");
+        
+        alertContainer.style.display = "block";
+        alertContainer.classList.remove("alert-success", "alert-info", "alert-warning", "alert-danger");
+        alertContainer.classList.add("alert-info");
+        messageDisplay.textContent = "";
     
-        // Aplica estilos e conteúdo da mensagem
-        alertContainer.style.display = "block"; // Exibe o container do alerta
-        alertContainer.classList.remove("alert-success", "alert-info", "alert-warning", "alert-danger"); // Remove classes anteriores
-        alertContainer.classList.add("alert-info"); // Adiciona classe de alerta Bootstrap
-        messageDisplay.textContent = ""; // Limpa o conteúdo anterior
+        const countClass = (cls) => classes.filter(c => c === cls).length;
     
-        if (classes.includes("classe1") && classes.includes("classe1") && classes.includes("classe1")) {
-            messageDisplay.textContent = "Escolha duas marcas e fale sobre uma semelhança entre duas marcas e uma característica única da terceira";
-        } else if ((classes.includes("classe1") && classes.includes("classe1") && classes.includes("classe2")) ||
-                   (classes.includes("classe1") && classes.includes("classe2") && classes.includes("classe1")) ||
-                   (classes.includes("classe2") && classes.includes("classe1") && classes.includes("classe1"))) {
+        const countClasse1 = countClass("classe1");
+        const countClasse2 = countClass("classe2");
+        const countClasse3 = countClass("classe3");
+    
+        if (countClasse1 === 3) {
+            messageDisplay.textContent = "Escolha duas marcas e fale sobre uma aspecto semelhante entre elas e um aspecto que diferencia a terceira das outras";
+        } else if (countClasse1 === 2 && countClasse2 === 1) {
             messageDisplay.textContent = "Fale sobre um ponto positivo de cada marca";
-        } else if (classes.includes("classe1") && classes.includes("classe1") && classes.includes("classe3")) {
+        } else if (countClasse1 === 2 && countClasse3 === 1) {
             messageDisplay.textContent = "Fale sobre um ponto negativo de cada marca";
-        } else if (classes.includes("classe1") && classes.includes("classe2") && classes.includes("classe3")) {
+        } else if (countClasse1 === 1 && countClasse2 === 1 && countClasse3 === 1){
             messageDisplay.textContent = "Fale sobre um ponto negativo e um positivo da marca";
         }
-    
-        
     }
+    
     
 
     drawCardButton.addEventListener('click', function() {
@@ -119,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
         responseForm.reset();
 
         // Habilitar botão de download quando houver pelo menos 5 respostas
-        if (responses.length >= 7) {
+        if (responses.length >= 1) {
             downloadCsvButton.disabled = false;
         }
     });
