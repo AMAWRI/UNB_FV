@@ -1,132 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário Ordenável</title>
+    <title>Drag and Drop List</title>
     <style>
-        #sortable-list {
+        .container {
+            display: flex;
+        }
+        .number-list {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            margin-right: 10px;
         }
-        #sortable-list li {
+        .number-list li {
             padding: 8px;
-            margin: 4px 0;
-            background-color: #f0f0f0;
             border: 1px solid #ccc;
-            cursor: move;
+            background: #f9f9f9;
         }
-        #output-list {
-            margin-top: 20px;
+        .item-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .item-list li {
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 4px;
+            background: #fff;
+            cursor: move;
         }
     </style>
 </head>
 <body>
-    <h1>Arraste cada itemOrdene a lista de acordo com a ordem de relevância na compra de um celular.
-</h1>
-    <form id="sortable-form">
-        <li data-value="Item 1">Interface gráfica</li> 
-            <li data-value="Item 2"> Conectividade 
-</li> 
-            <li data-value="Item 3"> Qualidade do Áudio 
-</li> 
-            <li data-value="Item 4"> Atualizações de Software </li> 
-            <li data-value="Item 5"> Sistema operacional 
-</li> 
-            <li data-value="Item 1"> Resistência à água </li> 
-            <li data-value="Item 2"> Qualidade da Tela </li> 
-            <li data-value="Item 3"> Qualidade da Câmera 
-</li> 
-            <li data-value="Item 4"> Sistema de segurança 
-</li> 
-            <li data-value="Item 5"> Inovação tecnológica 
-</li> 
-            <li data-value="Item 1"> Reputação da marca 
-</li> 
-            <li data-value="Item 2"> Autonomia da bateria 
-</li> 
-            <li data-value="Item 3"> Desempenho do Hardware 
-</li> 
-            <li data-value="Item 4"> Assistência autorizada 
-</li> 
-            <li data-value="Item 5"> Design 
-</li> 
-            <li data-value="Item 3"> Durabilidade 
-</li> 
-            <li data-value="Item 4"> Custo-benefício 
-</li 
-<li data-value="Item 5"> Qualidade de construção  
-</li> 
-        <button type="submit">Gerar Lista Ordenada</button>
-    </form>
-    <h2>Lista Ordenada</h2>
-    <ul id="output-list"></ul>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sortableList = document.getElementById('sortable-list');
-            const outputList = document.getElementById('output-list');
+<div class="container">
+    <ol class="number-list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li>
+        <li>18</li>
+    </ol>
+    <ul class="item-list" id="sortable-list">
+        <li draggable="true">Item 1</li>
+        <li draggable="true">Item 2</li>
+        <li draggable="true">Item 3</li>
+        <li draggable="true">Item 4</li>
+        <li draggable="true">Item 5</li>
+        <li draggable="true">Item 6</li>
+        <li draggable="true">Item 7</li>
+        <li draggable="true">Item 8</li>
+        <li draggable="true">Item 9</li>
+        <li draggable="true">Item 10</li>
+        <li draggable="true">Item 11</li>
+        <li draggable="true">Item 12</li>
+        <li draggable="true">Item 13</li>
+        <li draggable="true">Item 14</li>
+        <li draggable="true">Item 15</li>
+        <li draggable="true">Item 16</li>
+        <li draggable="true">Item 17</li>
+        <li draggable="true">Item 18</li>
+    </ul>
+</div>
 
-            function makeSortable(el) {
-                let dragEl;
-                el.addEventListener('dragstart', function(e) {
-                    dragEl = e.target;
-                    e.dataTransfer.effectAllowed = 'move';
-                    e.dataTransfer.setData('text/html', dragEl.innerHTML);
-                });
+<script>
+    const sortableList = document.getElementById('sortable-list');
+    let draggingEle;
+    let placeholder;
+    let isDraggingStarted = false;
 
-                el.addEventListener('dragover', function(e) {
-                    if (e.preventDefault) {
-                        e.preventDefault();
-                    }
-                    e.dataTransfer.dropEffect = 'move';
-                    return false;
-                });
+    const swap = (nodeA, nodeB) => {
+        const parentA = nodeA.parentNode;
+        const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
 
-                el.addEventListener('dragenter', function(e) {
-                    e.target.classList.add('over');
-                });
+        nodeB.parentNode.insertBefore(nodeA, nodeB);
+        parentA.insertBefore(nodeB, siblingA);
+    };
 
-                el.addEventListener('dragleave', function(e) {
-                    e.target.classList.remove('over');
-                });
+    const isAbove = (nodeA, nodeB) => {
+        const rectA = nodeA.getBoundingClientRect();
+        const rectB = nodeB.getBoundingClientRect();
 
-                el.addEventListener('drop', function(e) {
-                    if (e.stopPropagation) {
-                        e.stopPropagation();
-                    }
-                    if (dragEl != e.target) {
-                        dragEl.innerHTML = e.target.innerHTML;
-                        e.target.innerHTML = e.dataTransfer.getData('text/html');
-                    }
-                    return false;
-                });
+        return (rectA.top + rectA.height / 2) < (rectB.top + rectB.height / 2);
+    };
 
-                el.addEventListener('dragend', function(e) {
-                    [].forEach.call(items, function(item) {
-                        item.classList.remove('over');
-                    });
-                });
+    const mouseDownHandler = function (e) {
+        draggingEle = e.target;
+        isDraggingStarted = false;
 
-                let items = el.querySelectorAll('li');
-                [].forEach.call(items, function(item) {
-                    item.setAttribute('draggable', 'true');
-                });
-            }
+        placeholder = document.createElement('li');
+        placeholder.classList.add('placeholder');
+        draggingEle.parentNode.insertBefore(placeholder, draggingEle.nextSibling);
 
-            makeSortable(sortableList);
+        draggingEle.classList.add('dragging');
 
-            document.getElementById('sortable-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                outputList.innerHTML = '';
-                const items = sortableList.querySelectorAll('li');
-                items.forEach(function(item) {
-                    const li = document.createElement('li');
-                    li.textContent = item.textContent;
-                    outputList.appendChild(li);
-                });
-            });
-        });
-    </script>
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const mouseMoveHandler = function (e) {
+        const draggingRect = draggingEle.getBoundingClientRect();
+
+        if (!isDraggingStarted) {
+            isDraggingStarted = true;
+
+            placeholder.style.height = `${draggingRect.height}px`;
+        }
+
+        draggingEle.style.position = 'absolute';
+        draggingEle.style.top = `${e.pageY - draggingRect.height / 2}px`;
+        draggingEle.style.left = `${e.pageX - draggingRect.width / 2}px`;
+
+        const prevEle = draggingEle.previousElementSibling;
+        const nextEle = placeholder.nextElementSibling;
+
+        if (prevEle && prevEle !== placeholder && isAbove(draggingEle, prevEle)) {
+            swap(placeholder, draggingEle);
+            swap(placeholder, prevEle);
+            return;
+        }
+
+        if (nextEle && nextEle !== placeholder && isAbove(nextEle, draggingEle)) {
+            swap(nextEle, placeholder);
+            swap(nextEle, draggingEle);
+        }
+    };
+
+    const mouseUpHandler = function () {
+        placeholder && placeholder.parentNode.removeChild(placeholder);
+
+        draggingEle.classList.remove('dragging');
+        draggingEle.style.removeProperty('top');
+        draggingEle.style.removeProperty('left');
+        draggingEle.style.removeProperty('position');
+
+        isDraggingStarted = false;
+        draggingEle = null;
+
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    sortableList.querySelectorAll('li').forEach(function (item) {
+        item.addEventListener('mousedown', mouseDownHandler);
+    });
+</script>
+
 </body>
 </html>
