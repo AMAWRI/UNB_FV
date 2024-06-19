@@ -1,165 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop List</title>
+    <title>Formulário Ordenável</title>
     <style>
-        .container {
-            display: flex;
-        }
-        .number-list {
+        #sortable-list {
             list-style-type: none;
             padding: 0;
-            margin: 0;
-            margin-right: 10px;
         }
-        .number-list li {
+        #sortable-list li {
             padding: 8px;
+            margin: 4px 0;
+            background-color: #f0f0f0;
             border: 1px solid #ccc;
-            background: #f9f9f9;
-        }
-        .item-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .item-list li {
-            padding: 8px;
-            border: 1px solid #ccc;
-            margin-bottom: 4px;
-            background: #fff;
             cursor: move;
+        }
+        #output-list {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <h1>Ordene a Lista Conforme Seu Gosto</h1>
+    <form id="sortable-form">
+        <ul id="sortable-list">
+            <li data-value="Item 1">Item 1</li>
+            <li data-value="Item 2">Item 2</li>
+            <li data-value="Item 3">Item 3</li>
+            <li data-value="Item 4">Item 4</li>
+            <li data-value="Item 5">Item 5</li>
+        </ul>
+        <button type="submit">Gerar Lista Ordenada</button>
+    </form>
+    <h2>Lista Ordenada</h2>
+    <ul id="output-list"></ul>
 
-<div class="container">
-    <ol class="number-list">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-        <li>11</li>
-        <li>12</li>
-        <li>13</li>
-        <li>14</li>
-        <li>15</li>
-        <li>16</li>
-        <li>17</li>
-        <li>18</li>
-    </ol>
-    <ul class="item-list" id="sortable-list">
-        <li draggable="true">Item 1</li>
-        <li draggable="true">Item 2</li>
-        <li draggable="true">Item 3</li>
-        <li draggable="true">Item 4</li>
-        <li draggable="true">Item 5</li>
-        <li draggable="true">Item 6</li>
-        <li draggable="true">Item 7</li>
-        <li draggable="true">Item 8</li>
-        <li draggable="true">Item 9</li>
-        <li draggable="true">Item 10</li>
-        <li draggable="true">Item 11</li>
-        <li draggable="true">Item 12</li>
-        <li draggable="true">Item 13</li>
-        <li draggable="true">Item 14</li>
-        <li draggable="true">Item 15</li>
-        <li draggable="true">Item 16</li>
-        <li draggable="true">Item 17</li>
-        <li draggable="true">Item 18</li>
-    </ul>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sortableList = document.getElementById('sortable-list');
+            const outputList = document.getElementById('output-list');
 
-<script>
-    const sortableList = document.getElementById('sortable-list');
-    let draggingEle;
-    let placeholder;
-    let isDraggingStarted = false;
+            function makeSortable(el) {
+                let dragEl;
+                el.addEventListener('dragstart', function(e) {
+                    dragEl = e.target;
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', dragEl.innerHTML);
+                });
 
-    const swap = (nodeA, nodeB) => {
-        const parentA = nodeA.parentNode;
-        const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
+                el.addEventListener('dragover', function(e) {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    e.dataTransfer.dropEffect = 'move';
+                    return false;
+                });
 
-        nodeB.parentNode.insertBefore(nodeA, nodeB);
-        parentA.insertBefore(nodeB, siblingA);
-    };
+                el.addEventListener('dragenter', function(e) {
+                    e.target.classList.add('over');
+                });
 
-    const isAbove = (nodeA, nodeB) => {
-        const rectA = nodeA.getBoundingClientRect();
-        const rectB = nodeB.getBoundingClientRect();
+                el.addEventListener('dragleave', function(e) {
+                    e.target.classList.remove('over');
+                });
 
-        return (rectA.top + rectA.height / 2) < (rectB.top + rectB.height / 2);
-    };
+                el.addEventListener('drop', function(e) {
+                    if (e.stopPropagation) {
+                        e.stopPropagation();
+                    }
+                    if (dragEl != e.target) {
+                        dragEl.innerHTML = e.target.innerHTML;
+                        e.target.innerHTML = e.dataTransfer.getData('text/html');
+                    }
+                    return false;
+                });
 
-    const mouseDownHandler = function (e) {
-        draggingEle = e.target;
-        isDraggingStarted = false;
+                el.addEventListener('dragend', function(e) {
+                    [].forEach.call(items, function(item) {
+                        item.classList.remove('over');
+                    });
+                });
 
-        placeholder = document.createElement('li');
-        placeholder.classList.add('placeholder');
-        draggingEle.parentNode.insertBefore(placeholder, draggingEle.nextSibling);
+                let items = el.querySelectorAll('li');
+                [].forEach.call(items, function(item) {
+                    item.setAttribute('draggable', 'true');
+                });
+            }
 
-        draggingEle.classList.add('dragging');
+            makeSortable(sortableList);
 
-        document.addEventListener('mousemove', mouseMoveHandler);
-        document.addEventListener('mouseup', mouseUpHandler);
-    };
-
-    const mouseMoveHandler = function (e) {
-        const draggingRect = draggingEle.getBoundingClientRect();
-
-        if (!isDraggingStarted) {
-            isDraggingStarted = true;
-
-            placeholder.style.height = `${draggingRect.height}px`;
-        }
-
-        draggingEle.style.position = 'absolute';
-        draggingEle.style.top = `${e.pageY - draggingRect.height / 2}px`;
-        draggingEle.style.left = `${e.pageX - draggingRect.width / 2}px`;
-
-        const prevEle = draggingEle.previousElementSibling;
-        const nextEle = placeholder.nextElementSibling;
-
-        if (prevEle && prevEle !== placeholder && isAbove(draggingEle, prevEle)) {
-            swap(placeholder, draggingEle);
-            swap(placeholder, prevEle);
-            return;
-        }
-
-        if (nextEle && nextEle !== placeholder && isAbove(nextEle, draggingEle)) {
-            swap(nextEle, placeholder);
-            swap(nextEle, draggingEle);
-        }
-    };
-
-    const mouseUpHandler = function () {
-        placeholder && placeholder.parentNode.removeChild(placeholder);
-
-        draggingEle.classList.remove('dragging');
-        draggingEle.style.removeProperty('top');
-        draggingEle.style.removeProperty('left');
-        draggingEle.style.removeProperty('position');
-
-        isDraggingStarted = false;
-        draggingEle = null;
-
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-    };
-
-    sortableList.querySelectorAll('li').forEach(function (item) {
-        item.addEventListener('mousedown', mouseDownHandler);
-    });
-</script>
-
+            document.getElementById('sortable-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                outputList.innerHTML = '';
+                const items = sortableList.querySelectorAll('li');
+                items.forEach(function(item) {
+                    const li = document.createElement('li');
+                    li.textContent = item.textContent;
+                    outputList.appendChild(li);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
