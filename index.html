@@ -1,121 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário Ordenável</title>
-    <style>
-        #sortable-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        #sortable-list li {
-            padding: 8px;
-            margin: 4px 0;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            cursor: move;
-        }
-        #output-list {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Coloque em ordem de relevância os item que julga mais importante durante a compra de um celular</h1>
-<h3>  Quando clique em Gerar Lista Ordenada e me envie por whatsapp ou email</h3>
-<h3>Muito Obrigado</h3>
-    <form id="sortable-form">
-        <ul id="sortable-list">
-            <li data-value="Item 1">Item 1</li>
-            <li data-value="Item 2">Item 2</li>
-            <li data-value="Item 3">Item 3</li>
-            <li data-value="Item 4">Item 4</li>
-            <li data-value="Item 5">Item 5</li>
-            <li data-value="Item 6">Item 6</li>
-            <li data-value="Item 7">Item 7</li>
-            <li data-value="Item 8">Item 8</li>
-            <li data-value="Item 9">Item 9</li>
-            <li data-value="Item 10">Item 10</li>
-            <li data-value="Item 11">Item 11</li>
-            <li data-value="Item 12">Item 12</li>
-            <li data-value="Item 13">Item 13</li>
-            <li data-value="Item 14">Item 14</li>
-            <li data-value="Item 15">Item 15</li>
-            <li data-value="Item 16">Item 16</li>
-            <li data-value="Item 17">Item 17</li>
-            <li data-value="Item 18">Item 18</li>
-        </ul>
-        <button type="submit">Gerar Lista Ordenada</button>
-    </form>
-    <h2>Lista Ordenada</h2>
-    <ul id="output-list"></ul>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sortableList = document.getElementById('sortable-list');
-            const outputList = document.getElementById('output-list');
-
-            function makeSortable(el) {
-                let dragEl;
-                el.addEventListener('dragstart', function(e) {
-                    dragEl = e.target;
-                    e.dataTransfer.effectAllowed = 'move';
-                    e.dataTransfer.setData('text/html', dragEl.innerHTML);
-                });
-
-                el.addEventListener('dragover', function(e) {
-                    if (e.preventDefault) {
-                        e.preventDefault();
-                    }
-                    e.dataTransfer.dropEffect = 'move';
-                    return false;
-                });
-
-                el.addEventListener('dragenter', function(e) {
-                    e.target.classList.add('over');
-                });
-
-                el.addEventListener('dragleave', function(e) {
-                    e.target.classList.remove('over');
-                });
-
-                el.addEventListener('drop', function(e) {
-                    if (e.stopPropagation) {
-                        e.stopPropagation();
-                    }
-                    if (dragEl != e.target) {
-                        dragEl.innerHTML = e.target.innerHTML;
-                        e.target.innerHTML = e.dataTransfer.getData('text/html');
-                    }
-                    return false;
-                });
-
-                el.addEventListener('dragend', function(e) {
-                    [].forEach.call(items, function(item) {
-                        item.classList.remove('over');
-                    });
-                });
-
-                let items = el.querySelectorAll('li');
-                [].forEach.call(items, function(item) {
-                    item.setAttribute('draggable', 'true');
-                });
-            }
-
-            makeSortable(sortableList);
-
-            document.getElementById('sortable-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                outputList.innerHTML = '';
-                const items = sortableList.querySelectorAll('li');
-                items.forEach(function(item) {
-                    const li = document.createElement('li');
-                    li.textContent = item.textContent;
-                    outputList.appendChild(li);
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+[8:54 PM] Guilherme Sales De Almeida
+<li data-value="Item 1">Interface gráfica</li> 
+            <li data-value="Item 2"> Conectividade 
+</li> 
+            <li data-value="Item 3"> Qualidade do Áudio 
+</li> 
+            <li data-value="Item 4"> Atualizações de Software </li> 
+            <li data-value="Item 5"> Sistema operacional 
+</li> 
+            <li data-value="Item 6"> Resistência à água </li> 
+            <li data-value="Item 7"> Qualidade da Tela </li> 
+            <li data-value="Item 8"> Qualidade da Câmera 
+</li> 
+            <li data-value="Item 9"> Sistema de segurança 
+</li> 
+            <li data-value="Item 10"> Inovação tecnológica 
+</li> 
+            <li data-value="Item 11"> Reputação da marca 
+</li> 
+            <li data-value="Item 12"> Autonomia da bateria 
+</li> 
+            <li data-value="Item 13"> Desempenho do Hardware 
+</li> 
+            <li data-value="Item 14"> Assistência autorizada 
+</li> 
+            <li data-value="Item 15"> Design 
+</li> 
+            <li data-value="Item 16"> Durabilidade 
+</li> 
+            <li data-value="Item 17"> Custo-benefício 
+</li 
+<li data-value="Item 18"> Qualidade de construção  
+</li> 
